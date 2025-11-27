@@ -1,0 +1,74 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*/.ipynb_checkpoints/*
+*.ipynb_checkpoints
+
+# PyTorch
+*.pt
+*.pth
+*.ckpt
+
+# Virtual environments
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+.venv
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Large data files (excluded due to GitHub size limits)
+# These files need to be stored separately or with Git LFS
+Input_HGNN/Feature_matrix.csv
+Input_HGNN/Incidence_matrix.csv
+Reactome_pathways_and_Oncogenes/Ensembl2Reactome_All_Levels.txt
+
+# Raw data files (optional - uncomment to exclude all raw data)
+# Omic_source_data/
+# *.tsv
+# *.maf
+
+# Backup files
+*.bak
+*.backup
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Environment variables
+.env
+.env.local

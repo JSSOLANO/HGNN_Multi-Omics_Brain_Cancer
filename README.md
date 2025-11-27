@@ -1,0 +1,184 @@
+# Hypergraph Neural Network for Oncogene Analysis
+
+A hypergraph neural network (HGNN) autoencoder implementation for identifying genes functionally similar to known oncogenes in glioma brain tumors using multi-omic data from the CPTAC-3 Brain tumor cohort.
+
+## Overview
+
+This project uses hypergraph neural networks to learn embeddings of genes and biological pathways, leveraging the natural hypergraph structure of biological systems where genes participate in multiple overlapping pathways. The model is trained on genomic and transcriptomic data to identify genes that are functionally similar to known glioma oncogenes.
+
+## Key Features
+
+- **Multi-omic Integration**: Combines genomic (single nucleotide variations) and transcriptomic (gene expression) data
+- **Pathway-based Hypergraph**: Uses Reactome pathways to construct biologically meaningful hyperedges
+- **Autoencoder Architecture**: Learns low-dimensional embeddings for both genes and pathways
+- **Oncogene Similarity Analysis**: Identifies genes similar to known glioma oncogenes based on learned embeddings
+
+## Dataset
+
+**Source**: CPTAC-3 Brain Tumor Cohort
+**Download Date**: October 11, 2024
+**Sample Size**: 179 tumor samples
+
+### Data Types
+1. **Genomic Data**
+   - Simple nucleotide variation (SNV)
+   - Experimental Strategy: WXS
+   - Tissue Type: Brain-nos (Tumor)
+
+2. **Transcriptomic Data**
+   - RNA-Seq gene expression quantification
+   - STAR alignment gene counts
+   - Tissue Type: Brain-nos (Tumor)
+
+### Top 20 Mutated Genes in Glioma (COSMIC Database)
+Selected as reference oncogenes (as of 10-19-2024):
+- IDH1 (34%), TP53 (29%), PTEN (15%), ATRX (18%), EGFR (11%)
+- H3F3A (9%), PIK3CA (8%), BRAF (6%), CIC (9%), NF1 (9%)
+- IDH2 (2%), PDGFRA (4%), RB1 (5%), PIK3R1 (5%), FUBP1 (4%)
+- NOTCH1 (4%), CHEK2 (5%), KMT2C (4%), SETD2 (3%), MSH6 (3%)
+
+## Project Structure
+
+```
+HGNN_Oncogene/
+├── Code/
+│   ├── Genomic_preprocess.ipynb           # Preprocessing genomic mutation data
+│   ├── Hyperedges_and_Feature_Matrix.ipynb # Creating hypergraph structure
+│   └── HGNN.ipynb                         # Training HGNN autoencoder
+├── Input_HGNN/
+│   ├── Feature_matrix.csv                 # Node features (genes)
+│   └── Incidence_matrix.csv               # Hypergraph incidence matrix
+├── HGNN_output-embeddings/
+│   ├── learned_gene_embeddings.pt         # Learned gene embeddings
+│   ├── learned_pathway_embeddings.pt      # Learned pathway embeddings
+│   └── Closest_genes_to_Ocogenes/
+│       └── all_closest_genes_euclidean.csv # Similar genes to oncogenes
+├── Omic_source_data/
+│   ├── CPTAC-3_Brain-nos_sinlge_nucleotide_variation/  # Raw mutation files
+│   └── CPTAC-3_Brain-nos_transcriptome_profiling/      # Raw RNA-Seq files
+├── Reactome_pathways_and_Oncogenes/
+│   ├── Ensembl2Reactome_All_Levels.txt    # Reactome pathway database
+│   ├── Oncogen_Glioma.csv                 # Known oncogene list
+│   └── reactome_patways.csv               # Processed pathway data
+└── README.md
+```
+
+## Methodology
+
+### 1. Genomic Preprocessing
+- Concatenate all mutation files into unified dataset
+- Filter out variants: 3'Flank, 5'Flank, RNA, Silent
+- Identify top mutated genes from COSMIC database
+
+### 2. Hypergraph Construction
+- Map genes to Reactome biological pathways
+- Create incidence matrix where:
+  - Nodes = Genes (60,615 genes)
+  - Hyperedges = Pathways (2,778 pathways)
+  - A gene is connected to a hyperedge if it participates in that pathway
+
+### 3. Feature Matrix Creation
+- Integrate genomic and transcriptomic data
+- Create feature vectors for each gene (193 features)
+
+### 4. HGNN Autoencoder Training
+**Architecture:**
+- Encoder: 2 HypergraphConv layers
+- Latent dimension: 10
+- Learnable hyperedge embeddings
+- Decoder: Inner product reconstruction
+
+**Training:**
+- Loss: Binary Cross-Entropy with Logits
+- Optimizer: Adam (lr=0.01)
+- Epochs: 200
+- Reconstruction target: Incidence matrix
+
+### 5. Similarity Analysis
+- Calculate Euclidean distance between gene embeddings
+- Identify top 10 genes most similar to each known oncogene
+
+## Requirements
+
+```bash
+pip install torch
+pip install torch_geometric
+pip install pandas
+pip install scipy
+```
+
+## Usage
+
+### 1. Preprocess Genomic Data
+```python
+# Run Genomic_preprocess.ipynb
+# Outputs: unified_mutation.csv
+```
+
+### 2. Build Hypergraph
+```python
+# Run Hyperedges_and_Feature_Matrix.ipynb
+# Outputs: Feature_matrix.csv, Incidence_matrix.csv
+```
+
+### 3. Train HGNN Model
+```python
+# Run HGNN.ipynb
+# Outputs: learned_gene_embeddings.pt, learned_pathway_embeddings.pt
+```
+
+### 4. Analyze Results
+```python
+# Load embeddings
+embeddings = torch.load('learned_gene_embeddings.pt')
+
+# Find similar genes to a specific oncogene
+from scipy.spatial.distance import euclidean
+# See HGNN.ipynb for complete analysis code
+```
+
+## Model Performance
+
+Final training loss: 0.0117 (after 200 epochs)
+
+The model successfully reconstructs the hypergraph structure, learning meaningful embeddings that capture functional relationships between genes and pathways.
+
+## Results
+
+The trained model produces:
+1. **Gene Embeddings**: 10-dimensional vectors for 60,615 genes
+2. **Pathway Embeddings**: 10-dimensional vectors for 2,778 pathways
+3. **Similar Gene Rankings**: For each known oncogene, a ranked list of functionally similar genes
+
+These results can be used for:
+- Discovering novel oncogene candidates
+- Understanding functional relationships between genes
+- Identifying genes that may have similar roles in cancer progression
+
+## Future Work
+
+- Integrate additional omic layers (proteomics, methylation)
+- Explore deeper architectures
+- Validate predictions with experimental data
+- Extend to other cancer types
+
+## Data Sources
+
+- **CPTAC-3**: [Cancer Imaging Archive](https://www.cancerimagingarchive.net/)
+- **COSMIC Database**: [cancer.sanger.ac.uk/cosmic](https://cancer.sanger.ac.uk/cosmic)
+- **Reactome**: [reactome.org](https://reactome.org/)
+
+## License
+
+This project is for research purposes. Please cite appropriately if you use this code or methodology.
+
+## Contact
+
+For questions or collaboration opportunities, please open an issue in this repository.
+
+## Citation
+
+If you use this work, please cite:
+```
+[Add citation information here]
+```
