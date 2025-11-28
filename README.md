@@ -168,30 +168,10 @@ These results can be used for:
 - Understanding functional relationships between genes
 - Identifying genes that may have similar roles in cancer progression
 
-## Future Work
-
-- Integrate additional omic layers (proteomics, methylation)
-- Explore deeper architectures
-- Validate predictions with experimental data
-- Extend to other cancer types
 
 ## Data Sources
 
-- **CPTAC-3**: [Cancer Imaging Archive](https://www.cancerimagingarchive.net/)
+- **CPTAC-3**: [CPTAC-3](https://portal.gdc.cancer.gov/projects/CPTAC-3)
 - **COSMIC Database**: [cancer.sanger.ac.uk/cosmic](https://cancer.sanger.ac.uk/cosmic)
 - **Reactome**: [reactome.org](https://reactome.org/)
 
-## License
-
-This project is for research purposes. Please cite appropriately if you use this code or methodology.
-
-## Contact
-
-For questions or collaboration opportunities, please open an issue in this repository.
-
-## Citation
-
-If you use this work, please cite:
-```
-[Add citation information here]
-```
