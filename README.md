@@ -8,8 +8,8 @@ This project uses hypergraph neural networks to learn embeddings of genes and bi
 
 ## Key Features
 
-- **Multi-omic Integration**: Combines genomic (single nucleotide variations) and transcriptomic (gene expression) data
-- **Pathway-based Hypergraph**: Uses Reactome pathways to construct biologically meaningful hyperedges
+- **Multi-omic Integration**: Combines genomic variations and transcriptomic data
+- **Pathway-based Hypergraph**: Uses Reactome pathways to construct hyperedges
 - **Autoencoder Architecture**: Learns low-dimensional embeddings for both genes and pathways
 - **Oncogene Similarity Analysis**: Identifies genes similar to known glioma oncogenes based on learned embeddings
 
@@ -21,7 +21,7 @@ This project uses hypergraph neural networks to learn embeddings of genes and bi
 
 ### Data Types
 1. **Genomic Data**
-   - Simple nucleotide variation (SNV)
+   - SNPs,INDELs
    - Experimental Strategy: WXS
    - Tissue Type: Brain-nos (Tumor)
 
