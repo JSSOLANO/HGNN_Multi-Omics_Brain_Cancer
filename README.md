@@ -168,7 +168,7 @@ These results can be used for:
 
 ## Data Sources
 
-- **CPTAC-3**: [CPTAC-3](https://portal.gdc.cancer.gov/projects/CPTAC-3)
+- **CPTAC-3**: [portal.gdc.cancer.gov/projects/CPTAC-3](https://portal.gdc.cancer.gov/projects/CPTAC-3)
 - **COSMIC Database**: [cancer.sanger.ac.uk/cosmic](https://cancer.sanger.ac.uk/cosmic)
 - **Reactome**: [reactome.org](https://reactome.org/)
 
