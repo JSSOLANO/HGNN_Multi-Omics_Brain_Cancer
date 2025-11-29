@@ -143,10 +143,7 @@ pip install scipy
 ### 4. Analyze Results
 ```python
 # Load embeddings
-embeddings = torch.load('learned_gene_embeddings.pt')
-
 # Find similar genes to a specific oncogene
-from scipy.spatial.distance import euclidean
 # See HGNN.ipynb for complete analysis code
 ```
 
