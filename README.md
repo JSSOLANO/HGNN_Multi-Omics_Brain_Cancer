@@ -8,8 +8,8 @@ This project uses hypergraph neural networks to learn embeddings of genes and bi
 
 ## Key Features
 
-- **Multi-omic Integration**: Combines genomic (single nucleotide variations) and transcriptomic (gene expression) data
-- **Pathway-based Hypergraph**: Uses Reactome pathways to construct biologically meaningful hyperedges
+- **Multi-omic Integration**: Combines genomic variations and transcriptomic data
+- **Pathway-based Hypergraph**: Uses Reactome pathways to construct hyperedges
 - **Autoencoder Architecture**: Learns low-dimensional embeddings for both genes and pathways
 - **Oncogene Similarity Analysis**: Identifies genes similar to known glioma oncogenes based on learned embeddings
 
@@ -21,7 +21,7 @@ This project uses hypergraph neural networks to learn embeddings of genes and bi
 
 ### Data Types
 1. **Genomic Data**
-   - Simple nucleotide variation (SNV)
+   - SNPs,INDELs
    - Experimental Strategy: WXS
    - Tissue Type: Brain-nos (Tumor)
 
@@ -143,10 +143,7 @@ pip install scipy
 ### 4. Analyze Results
 ```python
 # Load embeddings
-embeddings = torch.load('learned_gene_embeddings.pt')
-
 # Find similar genes to a specific oncogene
-from scipy.spatial.distance import euclidean
 # See HGNN.ipynb for complete analysis code
 ```
 
@@ -168,30 +165,10 @@ These results can be used for:
 - Understanding functional relationships between genes
 - Identifying genes that may have similar roles in cancer progression
 
-## Future Work
-
-- Integrate additional omic layers (proteomics, methylation)
-- Explore deeper architectures
-- Validate predictions with experimental data
-- Extend to other cancer types
 
 ## Data Sources
 
-- **CPTAC-3**: [Cancer Imaging Archive](https://www.cancerimagingarchive.net/)
+- **CPTAC-3**: [portal.gdc.cancer.gov/projects/CPTAC-3](https://portal.gdc.cancer.gov/projects/CPTAC-3)
 - **COSMIC Database**: [cancer.sanger.ac.uk/cosmic](https://cancer.sanger.ac.uk/cosmic)
 - **Reactome**: [reactome.org](https://reactome.org/)
 
-## License
-
-This project is for research purposes. Please cite appropriately if you use this code or methodology.
-
-## Contact
-
-For questions or collaboration opportunities, please open an issue in this repository.
-
-## Citation
-
-If you use this work, please cite:
-```
-[Add citation information here]
-```
