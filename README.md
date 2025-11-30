@@ -149,7 +149,7 @@ pip install scipy
 
 ## Model Performance
 
-Final training loss: 0.0117 (after 200 epochs)
+Final training loss: 0.0069 (after 200 epochs)
 
 The model successfully reconstructs the hypergraph structure, learning meaningful embeddings that capture functional relationships between genes and pathways.
 
