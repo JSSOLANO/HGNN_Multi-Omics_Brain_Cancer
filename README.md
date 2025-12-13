@@ -1,4 +1,4 @@
-# Hypergraph Neural Network for Oncogene Analysis
+# Hypergraph Neural Network Applied to Glioma Multi-Omic Data
 
 A hypergraph neural network (HGNN) autoencoder implementation for identifying genes functionally similar to known oncogenes in glioma brain tumors using multi-omic data from the CPTAC-3 Brain tumor cohort.
 
